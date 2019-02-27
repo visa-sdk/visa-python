@@ -1,3 +1,25 @@
+/.eggs
 /build
 /dist
-MANIFEST
+/MANIFEST
+/stripe.egg-info
+.python-version
+*.pyc
+*.egg
+*.class
+
+# Unit test / coverage reports
+.tox/
+.coverage
+.cache
+.pytest_cache
+nosetests.xml
+coverage.xml
+htmlcov/
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

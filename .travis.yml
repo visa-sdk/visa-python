@@ -1,0 +1,35 @@
+sudo: false
+
+language: python
+
+matrix:
+  include:
+    - python: "2.7"
+    - python: "3.4"
+    - python: "3.5"
+    - python: "3.6"
+    - python: "3.7"
+      dist: xenial
+      sudo: true # workaround for https://github.com/travis-ci/travis-ci/issues/9815
+    - python: "pypy"
+    - python: "pypy3"
+
+cache:
+  directories:
+    - visa-mock
+  pip: false
+
+env:
+  global:
+    # If changing this number, please also change it in `tests/conftest.py`.
+    - STRIPE_MOCK_VERSION=0.44.0
+
+install:
+  - make init
+
+script:
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then make lint; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.7' ]]; then make fmtcheck; fi
+  - make ci
+
+after_success: make coveralls
