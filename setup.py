@@ -24,9 +24,6 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 os.chdir(here)
 
-with open(os.path.join(here, "LONG_DESCRIPTION.rst"), encoding="utf-8") as f:
-    long_description = f.read()
-
 version_contents = {}
 with open(os.path.join(here, "visa", "version.py"), encoding="utf-8") as f:
     exec(f.read(), version_contents)
@@ -35,7 +32,6 @@ setup(
     name="visa",
     version=version_contents["VERSION"],
     description="Python bindings for the VISA API",
-    long_description=long_description,
     author="VISA",
     author_email="hprobotic@gmail.com",
     url="https://github.com/visa-sdk/visa-python",

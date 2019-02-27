@@ -2,7 +2,7 @@
 /build
 /dist
 /MANIFEST
-/stripe.egg-info
+/visa.egg-info
 .python-version
 *.pyc
 *.egg
