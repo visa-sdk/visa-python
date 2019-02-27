@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/visa-sdk/visa-python.svg?branch=master)](https://travis-ci.org/visa-sdk/visa-python)
 [![Coverage Status](https://coveralls.io/repos/github/visa-sdk/visa-python/badge.svg?branch=master)](https://coveralls.io/github/visa-sdk/visa-python?branch=master)
+[![PyPI](https://img.shields.io/pypi/v/visa.svg)](https://pypi.python.org/pypi/visa)
 
 The VISA Python library provides convenient access to the VISA API from
 applications written in the Python language.
