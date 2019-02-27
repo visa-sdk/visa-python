@@ -4,11 +4,11 @@
 
 You don't need this source code unless you want to modify the package. If you just want to use the Visa Python bindings, you should run:
 
-  sudo easy_install visa
+`sudo easy_install visa`
 
 To install from this source code, run:
 
-  python setup.py install
+`python setup.py install`
 
 ## Documentation
 
