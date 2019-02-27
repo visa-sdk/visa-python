@@ -22,4 +22,9 @@ from visa.oauth import OAuth
 
 def set_app_info(name, partner_id=None, url=None, version=None):
     global app_info
-    app_info = {"name": name, "partner_id": partner_id, "url": url, "version": version}
+    app_info = {
+        "name": name,
+        "partner_id": partner_id,
+        "url": url,
+        "version": version,
+    }

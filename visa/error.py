@@ -80,13 +80,17 @@ class APIConnectionError(VISAError):
 
 class VISAErrorWithParamCode(VISAError):
     def __repr__(self):
-        return "%s(message=%r, param=%r, code=%r, http_status=%r, " "request_id=%r)" % (
-            self.__class__.__name__,
-            self._message,
-            self.param,
-            self.code,
-            self.http_status,
-            self.request_id,
+        return (
+            "%s(message=%r, param=%r, code=%r, http_status=%r, "
+            "request_id=%r)"
+            % (
+                self.__class__.__name__,
+                self._message,
+                self.param,
+                self.code,
+                self.http_status,
+                self.request_id,
+            )
         )
 
 

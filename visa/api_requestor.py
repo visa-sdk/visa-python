@@ -71,7 +71,12 @@ def _build_api_url(url, query):
 
 class APIRequestor(object):
     def __init__(
-        self, key=None, client=None, api_base=None, api_version=None, account=None
+        self,
+        key=None,
+        client=None,
+        api_base=None,
+        api_version=None,
+        account=None,
     ):
         self.api_base = api_base or visa.api_base
         self.api_key = key
@@ -84,7 +89,9 @@ class APIRequestor(object):
         self._client = (
             client
             or visa.default_http_client
-            or http_client.new_default_http_client(verify_ssl_certs=verify, proxy=proxy)
+            or http_client.new_default_http_client(
+                verify_ssl_certs=verify, proxy=proxy
+            )
         )
 
         self._last_request_metrics = None
@@ -123,10 +130,14 @@ class APIRequestor(object):
         # contrast, in API errors, `error` is a hash with sub-keys. We use
         # this property to distinguish between OAuth and API errors.
         if isinstance(error_data, six.string_types):
-            err = self.specific_oauth_error(rbody, rcode, resp, rheaders, error_data)
+            err = self.specific_oauth_error(
+                rbody, rcode, resp, rheaders, error_data
+            )
 
         if err is None:
-            err = self.specific_api_error(rbody, rcode, resp, rheaders, error_data)
+            err = self.specific_api_error(
+                rbody, rcode, resp, rheaders, error_data
+            )
 
         raise err
 
@@ -140,7 +151,9 @@ class APIRequestor(object):
         )
 
         # Rate limits were previously coded as 400's with code 'rate_limit'
-        if rcode == 429 or (rcode == 400 and error_data.get("code") == "rate_limit"):
+        if rcode == 429 or (
+            rcode == 400 and error_data.get("code") == "rate_limit"
+        ):
             return error.RateLimitError(
                 error_data.get("message"), rbody, rcode, resp, rheaders
             )
@@ -292,7 +305,8 @@ class APIRequestor(object):
         elif method == "post":
             if (
                 supplied_headers is not None
-                and supplied_headers.get("Content-Type") == "multipart/form-data"
+                and supplied_headers.get("Content-Type")
+                == "multipart/form-data"
             ):
                 generator = MultipartDataGenerator()
                 generator.add_params(params or {})
@@ -316,7 +330,9 @@ class APIRequestor(object):
 
         util.log_info("Request to VISA api", method=method, path=abs_url)
         util.log_debug(
-            "Post details", post_data=encoded_params, api_version=self.api_version
+            "Post details",
+            post_data=encoded_params,
+            api_version=self.api_version,
         )
 
         request_start = _now_ms()
@@ -331,7 +347,8 @@ class APIRequestor(object):
         if "Request-Id" in rheaders:
             request_id = rheaders["Request-Id"]
             util.log_debug(
-                "Dashboard link for request", link=util.dashboard_link(request_id)
+                "Dashboard link for request",
+                link=util.dashboard_link(request_id),
             )
             if visa.enable_telemetry:
                 request_duration_ms = _now_ms() - request_start

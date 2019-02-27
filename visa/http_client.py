@@ -151,7 +151,9 @@ class HTTPClient(object):
                     raise connection_error
 
     def request(self, method, url, headers, post_data=None):
-        raise NotImplementedError("HTTPClient subclasses must implement `request`")
+        raise NotImplementedError(
+            "HTTPClient subclasses must implement `request`"
+        )
 
     def _should_retry(self, response, api_connection_error, num_retries):
         if response is not None:
@@ -176,7 +178,8 @@ class HTTPClient(object):
         # number of num_retries so far as inputs.
         # Do not allow the number to exceed max_network_retry_delay.
         sleep_seconds = min(
-            HTTPClient.INITIAL_DELAY * (2 ** (num_retries - 1)), HTTPClient.MAX_DELAY
+            HTTPClient.INITIAL_DELAY * (2 ** (num_retries - 1)),
+            HTTPClient.MAX_DELAY,
         )
 
         sleep_seconds = self._add_jitter_time(sleep_seconds)
@@ -192,9 +195,13 @@ class HTTPClient(object):
         return sleep_seconds
 
     def _add_telemetry_header(self, headers):
-        last_request_metrics = getattr(self._thread_local, "last_request_metrics", None)
+        last_request_metrics = getattr(
+            self._thread_local, "last_request_metrics", None
+        )
         if visa.enable_telemetry and last_request_metrics:
-            telemetry = {"last_request_metrics": last_request_metrics.payload()}
+            telemetry = {
+                "last_request_metrics": last_request_metrics.payload()
+            }
             headers["X-VISA-Client-Telemetry"] = json.dumps(telemetry)
 
     def _record_request_metrics(self, response, request_start):
@@ -207,7 +214,9 @@ class HTTPClient(object):
             )
 
     def close(self):
-        raise NotImplementedError("HTTPClient subclasses must implement `close`")
+        raise NotImplementedError(
+            "HTTPClient subclasses must implement `close`"
+        )
 
 
 class RequestsClient(HTTPClient):
@@ -432,7 +441,8 @@ class PycurlClient(HTTPClient):
                 self._curl.setopt(pycurl.PROXYPORT, proxy.port)
             if proxy.username or proxy.password:
                 self._curl.setopt(
-                    pycurl.PROXYUSERPWD, "%s:%s" % (proxy.username, proxy.password)
+                    pycurl.PROXYUSERPWD,
+                    "%s:%s" % (proxy.username, proxy.password),
                 )
 
         if method == "get":
@@ -541,7 +551,9 @@ class Urllib2Client(HTTPClient):
             # use the custom proxy tied opener, if any.
             # otherwise, fall to the default urllib opener.
             response = (
-                self._opener.open(req) if self._opener else urllib.request.urlopen(req)
+                self._opener.open(req)
+                if self._opener
+                else urllib.request.urlopen(req)
             )
             rbody = response.read()
             rcode = response.code
