@@ -5,7 +5,7 @@ import os
 api_key = None
 client_id = None
 api_base = "https://api.visa.com"
-connect_api_base = "https://api.visa.com"
+connect_api_base = "https://connect.visa.com"
 api_version = None
 verify_ssl_certs = True
 proxy = None
